@@ -11,3 +11,14 @@ https://en.wikipedia.org/wiki/List_of_presidents_of_India
 I scraped the table using R and did a bit of cleaning in excel.
 
 ![image](https://user-images.githubusercontent.com/31981663/181430193-c600581e-8c24-4551-b341-9bd2e1ec3f73.png)
+
+---
+
+## 2. Scooby Pedia
+
+#### [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-07-13/readme.md) Data
+
+The data this week comes from {Kaggle](https://www.kaggle.com/williamschooleman/scoobydoo-complete) thanks to manual data aggregation by plummye.
+
+![image](https://user-images.githubusercontent.com/31981663/181434015-482c2ab1-6a77-43de-a32e-ea3f72e4a355.png)
+
