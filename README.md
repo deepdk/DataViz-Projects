@@ -14,7 +14,7 @@ I scraped the table using R and did a bit of cleaning in excel.
 
 ---
 
-## 2. Scooby Pedia
+## 2. [Scooby Pedia](https://github.com/deepdk/DataViz-Projects/tree/main/Sooby%20Doo%20Episodes)
 
 #### [TidyTuesday](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-07-13/readme.md) Data
 
