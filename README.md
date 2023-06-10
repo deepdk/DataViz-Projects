@@ -22,3 +22,8 @@ The data this week comes from {Kaggle](https://www.kaggle.com/williamschooleman/
 
 ![image](https://user-images.githubusercontent.com/31981663/181434015-482c2ab1-6a77-43de-a32e-ea3f72e4a355.png)
 
+## 3. [Forbes Billionaires](https://github.com/deepdk/DataViz-Projects/tree/main/Forbes%20Billionaires)
+
+![image](https://github.com/deepdk/DataViz-Projects/assets/31981663/e32d2769-e465-4426-bde3-1396f477bbc6)
+
+
