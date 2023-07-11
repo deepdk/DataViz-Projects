@@ -1,11 +1,3 @@
----
-title: "tour de france"
-author: "Deepali Kank"
-date: "`r Sys.Date()`"
-output: html_document
----
-
-```{r,warning=FALSE,message=FALSE}
 library(tidyverse)
 library(scales)
 library(MetBrewer)
@@ -15,41 +7,28 @@ library(ggflags)
 library(ggpubr)
 library(ggbeeswarm)
 library(stringr)
-```
 
-```{r}
 font_add(family = "Roboto", regular = "D:/HP laptop/Fonts/RobotoCondensed-Regular.ttf")
 showtext_auto()
-```
 
-
-```{r}
 finisher <- read_csv("D:/tour de france/tdf_finishers_copy.csv")
 stage <- read_csv("D:/tour de france/tdf_stages_copy.csv")
 winner <- read_csv("D:/tour de france/tdf_winners_copy.csv")
 tour <- read_csv("D:/tour de france/tdf_tours_copy.csv")
-```
-```{r}
+
 c_code <- read_csv("D:/country-codes.csv")
 
 c_code <- c_code |> 
   clean_names()
 head(c_code)
-```
 
-```{r}
 c_code <- c_code |> 
   rename(Country=english_short_name_lower_case)
 head(c_code)
 
-```
-```{r}
 c_code |> 
   filter(Country == "United Kingdom")
-```
 
-
-```{r}
 my_theme <- function() {
   
   # Colors
@@ -91,32 +70,10 @@ theme(strip.background = element_rect(fill=color.background, color=color.backgro
 # Plot margins
     theme(plot.margin = unit(c(0.35, 0.2, 0.3, 0.35), "cm"))
 }
-```
 
-
-
-```{r}
-view(finisher)
-```
-
-```{r}
-view(stage)
-```
-
-```{r}
-view(winner)
-```
-
-```{r}
-view(tour)
-```
-
-```{r}
 palette <- ("#FDB000","#FFFFFF","#FFFFFF","#FFFFFF","#000000")
-```
-# Starters and finishers by year
 
-```{r, fig.height=13,fig.width=20}
+# Starters and finishers by year
 tour |> 
  pivot_longer(cols = c('Starters','Finishers'),
               names_to = 'type',
@@ -128,23 +85,17 @@ tour |>
   theme(legend.position = "left")+
   theme(axis.title.x = element_blank())+
   theme(axis.title.y = element_blank())
-```
-```{r}
+
+
 winner_by_country <- winner |> 
   mutate(Country= recode(Country, "Great Britain"="United Kingdom")) |> 
   count(Country, sort = TRUE)
 winner_by_country
-```
 
-
-```{r}
 flag <- left_join(winner_by_country,c_code, by = "Country")
 flag
-```
 
 #Winners by country
-
-```{r, fig.width=20,fig.height=13}
 flag %>%
 mutate(country = str_to_lower(alpha_2_code))%>%
 arrange(desc(n))%>%
@@ -157,17 +108,11 @@ theme(axis.title.x = element_blank())+
 theme(axis.title.y = element_blank())+
 theme(axis.text.y = element_blank())+
   theme(axis.text.x = element_blank())
-```
 
 # Distance by Year
-
-```{r}
 tour |> 
   mutate(Distance_km_mean = mean(Distance_km))
-```
 
-
-```{r, fig.height=13, fig.width=20}
 tour |> 
   ggplot(aes(Year, Distance_km))+
   geom_area(fill = "#FDB000")+
@@ -175,60 +120,39 @@ tour |>
   geom_hline(aes(yintercept = mean(Distance_km)))+
   my_theme()+
   theme(axis.title.x = element_blank())
-```
-```{r}
+
 stage |> 
   count(Type, sort = TRUE)
-```
 
 # Winning time of winners
-
-
-```{r, fig.height=12, fig.width=20}
 winner |> 
   filter(!is.na(time_Hour)) |> 
   ggplot(aes(Year, time_Hour))+
   geom_line()+
   my_theme()+
   theme(axis.title.x = element_blank())
-```
-```{r}
+
 top_finisher <- finisher |> 
   count(Country, sort = TRUE)
-```
 
-```{r}
-write_csv(top_finisher,"D:/tour de france/top_finisher.csv")
-```
-
-
-```{r}
 stage |> 
   mutate(Distance_km = str_trim(Distance_km)) |> 
   mutate(Distance_km = as.numeric(Distance_km)) |>
   filter(Type == "Flat stage") |> 
   filter(Distance_km == max(Distance_km))
-```
 
-
-
-```{r}
 stage |> 
   mutate(Distance_km = str_trim(Distance_km)) |> 
   mutate(Distance_km = as.numeric(Distance_km)) |>
   filter(Type == "Mountain stage") |> 
   filter(Distance_km == max(Distance_km))
-```
-```{r}
+
 stage |> 
   mutate(Distance_km = str_trim(Distance_km)) |> 
   mutate(Distance_km = as.numeric(Distance_km)) |>
   filter(Type == "Hilly stage") |> 
   filter(Distance_km == max(Distance_km))
-```
 
-
-```{r, fig.height=13,fig.width=20}
 stage |> 
   filter(Type %in% c("Flat stage","Mountain stage","Hilly stage") )|> 
   mutate(Distance_km = str_trim(Distance_km)) |> 
@@ -238,22 +162,15 @@ stage |>
   scale_color_manual(values = c("#FDB000","#8B5A00","#CD8500"))+
   coord_flip()+
   my_theme()
-```
 
-```{r}
 finisher |> 
   count(Country, sort = TRUE) |> 
   mutate(total = sum(n)) |> 
   mutate(per = (n/total)*100) |> 
   arrange(desc(per)) |> 
   head(5)
-```
 
-```{r}
 winner |> 
   select(Year, Rider) |> 
   group_by(Year, Rider) |> 
   count(Rider, sort = TRUE)
-```
-
-
